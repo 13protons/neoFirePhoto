@@ -1,0 +1,22 @@
+{
+  "name": "neofirephoto",
+  "version": "1.0.0",
+  "description": "A program to turn a photo into instructions for neopixels, using FireLED",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13protons/neoFirePhoto.git"
+  },
+  "author": "13protons",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/13protons/neoFirePhoto/issues"
+  },
+  "homepage": "https://github.com/13protons/neoFirePhoto#readme",
+  "dependencies": {
+    "jimp": "^0.16.1"
+  }
+}
