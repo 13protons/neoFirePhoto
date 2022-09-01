@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/13protons/neoFirePhoto#readme",
   "dependencies": {
-    "jimp": "^0.16.1"
+    "jimp": "^0.16.1",
+    "lodash": "^4.17.21"
   }
 }
