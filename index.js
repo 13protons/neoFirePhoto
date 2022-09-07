@@ -9,9 +9,9 @@ const Rotate = {
   '_270': 270   // rotate 270 degrees clockwise
 }
 
-const subject = './assets/sunset.png'; // file to read. Make sure the path is good
+const subject = './assets/stripes.png'; // file to read. Make sure the path is good
 const settings = {
-  pixels: 20,       // how many neopixels in the group?
+  pixels: 30,       // how many neopixels in the group?
   fps: 5,           // how many frames per second?
   rotate: Rotate._0,
 }
@@ -35,14 +35,17 @@ function strigifyArrayForCcode(input) {
 
 function expand(data, template) {
   const expanded = strigifyArrayForCcode(data);
-  console.log(template({data: expanded}));
+  console.log(template({data: expanded, count: data.length}));
 }
 
 Jimp.read(subject)
   .then(img => {
     const prepared = img
       .rotate(settings.rotate)
-      .resize(settings.pixels, Jimp.AUTO, Jimp.RESIZE_BILINEAR);
+      .resize(settings.pixels, Jimp.AUTO, Jimp.RESIZE_BILINEAR)
+      // .posterize(16);
+      
+      
 
 
       getMatte(img.bitmap.width, img.bitmap.height).then(matte=>{
@@ -61,15 +64,15 @@ Jimp.read(subject)
         console.log(`//========${subject}======== - generated ${Date.now()}`);
         console.log(' ');
         console.log(`const int seq_width = ${flat.bitmap.width}; // width of image sequence data`);
-        console.log(`const int seq_height = ${flat.bitmap.height}; // width of image sequence data`);
+        console.log(`const int seq_height = ${flat.bitmap.height}; // height of image sequence data`);
         console.log(`const int seq_delay = ${Math.round(1000/settings.fps)}; // delay in ms`);
         console.log(' ');
 
         
-        const rowTemplate = _.template(`const uint8_t seq[${flat.bitmap.height}][${flat.bitmap.width}] PROGMEM = <%= data %>;`);
+        const rowTemplate = _.template(`const int seq[${flat.bitmap.height}][${flat.bitmap.width}] PROGMEM = <%= data %>;`);
         
 
-        const palletteTemplate = _.template(`const int pallette[] = <%= data %>;`)
+        const palletteTemplate = _.template(`const int pallette[<%= count %>] PROGMEM = <%= data %>;`)
         
         const pallette = [];
         const rows = [];
