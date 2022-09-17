@@ -9,7 +9,7 @@ const Rotate = {
   '_270': 270   // rotate 270 degrees clockwise
 }
 
-const subject = './assets/stripes.png'; // file to read. Make sure the path is good
+const subject = './assets/rainbow.png'; // file to read. Make sure the path is good
 const settings = {
   pixels: 30,       // how many neopixels in the group?
   fps: 5,           // how many frames per second?

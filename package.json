@@ -4,7 +4,9 @@
   "description": "A program to turn a photo into instructions for neopixels, using FireLED",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test:watch": "mocha --watch",
+    "make": "node index_images.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,9 @@
   },
   "homepage": "https://github.com/13protons/neoFirePhoto#readme",
   "dependencies": {
+    "chai": "^4.3.6",
     "jimp": "^0.16.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mocha": "^10.0.0"
   }
 }
