@@ -1,5 +1,6 @@
 const Jimp = require('jimp');
 const _ = require('lodash');
+const color = require('color-quantize');
 
 
 const Rotate = {
@@ -86,11 +87,9 @@ Jimp.read(subject)
             var green = flat.bitmap.data[idx + 1];
             var blue = flat.bitmap.data[idx + 2];
 
-            const hexVal = '0x' + [
-              red.toString(16).padStart(2, '0'),
-              green.toString(16).padStart(2, '0'),
-              blue.toString(16).padStart(2, '0')
-            ].join('').toUpperCase();
+            var websafe = color.websafe(`rgba(${red},${green},${blue}, 1)`);
+
+            const hexVal = websafe.replace('#', '0x');
 
             var found = pallette.findIndex((item)=>item == hexVal);
             

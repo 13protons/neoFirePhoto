@@ -1,7 +1,8 @@
 const Jimp = require('jimp');
 const _ = require('lodash');
 const path = require('path');
-
+const normalize = require('./lib/normalizeRgb');
+const color = require('color-quantize');
 
 const Rotate = {
   '_0': 0,      // no adjustment
@@ -82,13 +83,11 @@ let imageData = images.map(function (subject, index) {
           var green = flat.bitmap.data[idx + 1];
           var blue = flat.bitmap.data[idx + 2];
 
-          const hexVal = '0x' + [
-            red.toString(16).padStart(2, '0'),
-            green.toString(16).padStart(2, '0'),
-            blue.toString(16).padStart(2, '0')
-          ].join('').toUpperCase();
+          var websafe = color.websafe(`rgba(${red},${green},${blue}, 1)`);
 
-          var found = pallette.findIndex((item) => item == hexVal);
+          const hexVal = websafe.replace('#', '0x');
+
+          var found = pallette.findIndex((item)=>item == hexVal);
 
           if (found > -1) {
             // this is the index of our indexed color
@@ -138,6 +137,6 @@ Promise.allSettled(imageData).then((data)=>{
   });
 
   console.log('combinedPallette', combinedPallette.length);
-  console.log('indexDataOnly', indexDataOnly);
+  // console.log('indexDataOnly', indexDataOnly);
 
 });
